@@ -26,6 +26,14 @@ Os metadados são mantidos apenas em memória e se perdem no reinício. O dono
 informado pelo cliente não é autenticado e o filtro não controla acesso.
 Consulte a [especificação](docs/specs/dms-spec.md) para os contratos completos.
 
+## Frontend
+
+Com o backend em execução, use `cd frontend && npm install && npm run dev` e
+abra o endereço exibido pelo Vite. A interface utiliza o proxy `/api` para enviar,
+listar, filtrar e baixar documentos. Para testar a integração, execute
+`node --test frontend/test/documents.test.js` na raiz do repositório, após
+instalar as dependências do backend e do frontend.
+
 ---
 
 &copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
