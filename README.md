@@ -1,40 +1,35 @@
-# Document Management System com GitHub Copilot
+<div align="center">
 
-<img src="https://octodex.github.com/images/Professortocat_v2.png" align="right" height="200px" />
+# 🎉 Congratulations rissio! 🎉
 
-Hey rissio!
+<img src="https://octodex.github.com/images/welcometocat.png" height="200px" />
 
-Mona here. I'm done preparing your exercise. Hope you enjoy! 💚
+### 🌟 You've successfully completed the exercise! 🌟
 
-Remember, it's self-paced so feel free to take a break! ☕️
+## 🚀 Share Your Success!
 
-[![](https://img.shields.io/badge/Go%20to%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/treinamentos-mgi/document-management-system-rissio-23/issues/1)
+**Show off your new skills and inspire others!**
 
----
+<a href="https://twitter.com/intent/tweet?text=I%20just%20completed%20the%20%22Document%20Management%20System%20com%20GitHub%20Copilot%22%20GitHub%20Skills%20hands-on%20exercise!%20%F0%9F%8E%89%0A%0Ahttps%3A%2F%2Fgithub.com%2Ftreinamentos-mgi%2Fdocument-management-system-rissio-23%0A%0A%23GitHubSkills%20%23OpenSource%20%23GitHubLearn" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/Share%20on%20X-1da1f2?style=for-the-badge&logo=x&logoColor=white" alt="Share on X" />
+</a>
+<a href="https://bsky.app/intent/compose?text=I%20just%20completed%20the%20%22Document%20Management%20System%20com%20GitHub%20Copilot%22%20GitHub%20Skills%20hands-on%20exercise!%20%F0%9F%8E%89%0A%0Ahttps%3A%2F%2Fgithub.com%2Ftreinamentos-mgi%2Fdocument-management-system-rissio-23%0A%0A%23GitHubSkills%20%23OpenSource%20%23GitHubLearn" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/Share%20on%20Bluesky-0085ff?style=for-the-badge&logo=bluesky&logoColor=white" alt="Share on Bluesky" />
+</a>
+<a href="https://www.linkedin.com/feed/?shareActive=true&text=I%20just%20completed%20the%20%22Document%20Management%20System%20com%20GitHub%20Copilot%22%20GitHub%20Skills%20hands-on%20exercise!%20%F0%9F%8E%89%0A%0Ahttps%3A%2F%2Fgithub.com%2Ftreinamentos-mgi%2Fdocument-management-system-rissio-23%0A%0A%23GitHubSkills%20%23OpenSource%20%23GitHubLearn" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/Share%20on%20LinkedIn-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Share on LinkedIn" />
+</a>
 
-## Backend
+### 🎯 What's Next?
 
-Execute `cd backend && npm install && npm start` para iniciar o servidor
-na porta `3000`; `npm test` executa os testes. A porta pode ser alterada
-com `PORT`. Os uploads usam `backend/storage/uploads` por padrão; `UPLOAD_DIR`
-altera o diretório local e `MAX_UPLOAD_BYTES` define o limite em bytes
-(padrão: 10485760).
-Cada upload também aceita até 10 campos de texto de até 16 KiB cada e uma
-única parte de arquivo.
+**Keep the momentum going!**
 
-A API oferece `POST /upload` com `file` e `owner` em `multipart/form-data`,
-`GET /documents` (filtro opcional `owner`) e `GET /documents/:id/download`.
-Os metadados são mantidos apenas em memória e se perdem no reinício. O dono
-informado pelo cliente não é autenticado e o filtro não controla acesso.
-Consulte a [especificação](docs/specs/dms-spec.md) para os contratos completos.
+[![](https://img.shields.io/badge/Return%20to%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/treinamentos-mgi/document-management-system-rissio-23/issues/1)
+[![GitHub Skills](https://img.shields.io/badge/Explore%20GitHub%20Skills-000000?style=for-the-badge&logo=github&logoColor=white)](https://learn.github.com/skills)
 
-## Frontend
+*There's no better way to learn than building things!* 🚀
 
-Com o backend em execução, use `cd frontend && npm install && npm run dev` e
-abra o endereço exibido pelo Vite. A interface utiliza o proxy `/api` para enviar,
-listar, filtrar e baixar documentos. Para testar a integração, execute
-`node --test frontend/test/documents.test.js` na raiz do repositório, após
-instalar as dependências do backend e do frontend.
+</div>
 
 ---
 
