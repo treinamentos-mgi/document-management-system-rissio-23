@@ -12,5 +12,21 @@ Remember, it's self-paced so feel free to take a break! ☕️
 
 ---
 
+## Backend
+
+Execute `cd backend && npm install && npm start` para iniciar o servidor
+na porta `3000`; `npm test` executa os testes. A porta pode ser alterada
+com `PORT`. Os uploads usam `backend/storage/uploads` por padrão; `UPLOAD_DIR`
+altera o diretório local e `MAX_UPLOAD_BYTES` define o limite em bytes
+(padrão: 10485760).
+
+A API oferece `POST /upload` com `file` e `owner` em `multipart/form-data`,
+`GET /documents` (filtro opcional `owner`) e `GET /documents/:id/download`.
+Os metadados são mantidos apenas em memória e se perdem no reinício. O dono
+informado pelo cliente não é autenticado e o filtro não controla acesso.
+Consulte a [especificação](docs/specs/dms-spec.md) para os contratos completos.
+
+---
+
 &copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
