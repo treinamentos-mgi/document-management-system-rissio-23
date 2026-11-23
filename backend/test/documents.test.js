@@ -30,6 +30,16 @@ test('API de documentos', async (t) => {
     return fetch(`${baseUrl}/upload`, { method: 'POST', body: data });
   }
 
+  await t.test('verifica saúde e listagem inicial', async () => {
+    let response = await fetch(`${baseUrl}/health`);
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { status: 'ok' });
+
+    response = await fetch(`${baseUrl}/documents`);
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { documents: [] });
+  });
+
   await t.test('valida campos e remove arquivo gravado em caso de erro', async () => {
     let response = await upload(form(undefined, 'conteúdo'));
     assert.equal(response.status, 400);
@@ -49,6 +59,15 @@ test('API de documentos', async (t) => {
     const response = await upload(form('usuario-1', 'x'.repeat(129)));
     assert.equal(response.status, 413);
     assert.equal((await response.json()).error.code, 'FILE_TOO_LARGE');
+    assert.deepEqual(await fs.readdir(directory), []);
+  });
+
+  await t.test('recusa arquivos adicionais e remove o arquivo já gravado', async () => {
+    const data = form('usuario-1', 'conteúdo');
+    data.append('file', new Blob(['outro']), 'outro.txt');
+    const response = await upload(data);
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).error.code, 'VALIDATION_ERROR');
     assert.deepEqual(await fs.readdir(directory), []);
   });
 

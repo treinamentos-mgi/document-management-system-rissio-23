@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Instalar dependências do backend
+        run: npm install --prefix backend --no-audit --no-fund
+
+      - name: Instalar dependências do frontend
+        run: npm install --prefix frontend --no-audit --no-fund
+
+      - name: Executar testes do backend
+        run: npm test --prefix backend
+
+      - name: Executar testes de integração
+        run: node --test frontend/test/documents.test.js
+
+      - name: Compilar frontend
+        run: npm run build --prefix frontend
