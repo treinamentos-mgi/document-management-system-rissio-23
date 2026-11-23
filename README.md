@@ -19,6 +19,8 @@ na porta `3000`; `npm test` executa os testes. A porta pode ser alterada
 com `PORT`. Os uploads usam `backend/storage/uploads` por padrão; `UPLOAD_DIR`
 altera o diretório local e `MAX_UPLOAD_BYTES` define o limite em bytes
 (padrão: 10485760).
+Cada upload também aceita até 10 campos de texto de até 16 KiB cada e uma
+única parte de arquivo.
 
 A API oferece `POST /upload` com `file` e `owner` em `multipart/form-data`,
 `GET /documents` (filtro opcional `owner`) e `GET /documents/:id/download`.
