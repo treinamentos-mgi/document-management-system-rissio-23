@@ -31,6 +31,11 @@
 
 </div>
 
+## Integração contínua
+
+A pipeline executa em pushes e pull requests com Node.js 24: instala as
+dependências, executa os testes do backend e de integração e compila o frontend.
+
 ---
 
 &copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
