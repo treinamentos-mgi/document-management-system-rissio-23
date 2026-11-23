@@ -22,7 +22,15 @@ const storage = multer.diskStorage({
 });
 
 // O parser sinaliza o limite ao alcançá-lo, portanto aceita-se até o valor configurado.
-const upload = multer({ storage, limits: { fileSize: maxUploadBytes + 1 } });
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: maxUploadBytes + 1,
+    fields: 10,
+    fieldSize: 16 * 1024 + 1,
+    parts: 12,
+  },
+});
 const router = express.Router();
 
 router.post('/upload', upload.single('file'), controller.upload);

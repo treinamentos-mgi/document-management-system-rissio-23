@@ -11,6 +11,7 @@ async function create(file, owner) {
     if (!file || typeof owner !== 'string' || !owner.trim()) {
       const error = new Error('Informe o arquivo e o usuário.');
       error.status = 400;
+      error.code = 'VALIDATION_ERROR';
       throw error;
     }
 
@@ -24,8 +25,9 @@ async function create(file, owner) {
       storedName: file.filename,
       storagePath: file.path,
     };
+    const result = publicDocument(document);
     repository.save(document);
-    return publicDocument(document);
+    return result;
   } catch (error) {
     if (file) {
       try {
@@ -39,8 +41,9 @@ async function create(file, owner) {
 }
 
 function list(owner) {
+  const normalizedOwner = typeof owner === 'string' ? owner.trim() : owner;
   return repository.list()
-    .filter((document) => owner === undefined || document.owner === owner)
+    .filter((document) => normalizedOwner === undefined || document.owner === normalizedOwner)
     .map(publicDocument);
 }
 

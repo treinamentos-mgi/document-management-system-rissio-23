@@ -89,7 +89,7 @@ As respostas de erro usam JSON, com código estável e mensagem em português:
 
 ### `POST /upload`
 
-- Entrada `multipart/form-data`: `file` (arquivo obrigatório) e `owner` (identificador não vazio obrigatório).
+- Entrada `multipart/form-data`: `file` (arquivo obrigatório) e `owner` (identificador não vazio obrigatório). Até 10 campos de texto são aceitos, com limite de 16 KiB por campo; somente um arquivo é permitido.
 - `201`: metadados públicos do documento criado:
 
 ```json
@@ -109,7 +109,7 @@ As respostas de erro usam JSON, com código estável e mensagem em português:
 
 ### `GET /documents`
 
-- Parâmetro opcional `owner`: filtra os documentos pelo identificador do dono.
+- Parâmetro opcional `owner`: filtra os documentos pelo identificador do dono, ignorando espaços no início e no fim.
 - `200`: objeto com lista de metadados públicos; sem resultados, retorna `{"documents": []}`.
 
 ```json

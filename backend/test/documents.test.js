@@ -52,6 +52,41 @@ test('API de documentos', async (t) => {
     assert.deepEqual(await fs.readdir(directory), []);
   });
 
+  await t.test('limita campos multipart e remove o arquivo em caso de excesso', async () => {
+    const data = new FormData();
+    data.append('file', new Blob(['conteúdo']), 'arquivo.txt');
+    data.append('owner', 'usuario-1');
+    for (let i = 0; i < 10; i += 1) data.append(`campo${i}`, 'valor');
+    const response = await upload(data);
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).error.code, 'VALIDATION_ERROR');
+    assert.deepEqual(await fs.readdir(directory), []);
+  });
+
+  await t.test('retorna erros HTTP seguros e consistentes', async () => {
+    let response = await fetch(`${baseUrl}/upload`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: '{',
+    });
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), {
+      error: { code: 'VALIDATION_ERROR', message: 'Corpo da requisição inválido.' },
+    });
+
+    response = await fetch(`${baseUrl}/upload`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ value: 'x'.repeat(102401) }),
+    });
+    assert.equal(response.status, 413);
+    assert.equal((await response.json()).error.code, 'PAYLOAD_TOO_LARGE');
+
+    response = await fetch(`${baseUrl}/rota-inexistente`);
+    assert.equal(response.status, 404);
+    assert.equal((await response.json()).error.code, 'NOT_FOUND');
+  });
+
   await t.test('envia, lista, filtra e baixa documentos', async () => {
     let response = await upload(form('usuario-1', 'conteúdo'));
     assert.equal(response.status, 201);
@@ -78,6 +113,8 @@ test('API de documentos', async (t) => {
 
     response = await fetch(`${baseUrl}/documents?owner=usuario-2`);
     assert.deepEqual((await response.json()).documents, [second]);
+    response = await fetch(`${baseUrl}/documents?owner=%20usuario-2%20`);
+    assert.deepEqual((await response.json()).documents, [second]);
     response = await fetch(`${baseUrl}/documents?owner=desconhecido`);
     assert.deepEqual((await response.json()).documents, []);
 
@@ -96,5 +133,20 @@ test('API de documentos', async (t) => {
     assert.equal((await response.json()).error.code, 'NOT_FOUND');
     response = await fetch(`${baseUrl}/documents/inexistente/download`);
     assert.equal(response.status, 404);
+  });
+
+  await t.test('aceita os limites de campos e recusa um campo maior', async () => {
+    const data = form('x'.repeat(16 * 1024), 'conteúdo');
+    for (let i = 0; i < 9; i += 1) data.append(`campo${i}`, 'valor');
+    let response = await upload(data);
+    assert.equal(response.status, 201);
+    assert.equal((await response.json()).owner.length, 16 * 1024);
+    const files = await fs.readdir(directory);
+    assert.equal(files.length, 1);
+
+    response = await upload(form('x'.repeat(16 * 1024 + 1), 'conteúdo'));
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).error.code, 'VALIDATION_ERROR');
+    assert.deepEqual(await fs.readdir(directory), files);
   });
 });
